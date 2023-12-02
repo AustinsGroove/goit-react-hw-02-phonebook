@@ -1,15 +1,67 @@
 @import-normalize; /* bring in normalize.css styles */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  padding-top: 10px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.7),
+    rgba(0, 26, 255, 0.7)
+  );
+  color: #212121;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+textarea:focus,
+input:focus {
+  outline: none;
 }
