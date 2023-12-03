@@ -12,23 +12,34 @@ export class App extends Component {
   };
 
   addContact = contact => {
-    this.setState(({ contacts: prevContacts }) => {
-      const newContact = {
-        id: nanoid(),
-        name: contact.name,
-        number: contact.number,
-      };
+    const existNames = this.state.contacts.map(({ name }) => {
+      return name.toLowerCase();
+    });
+    const isExist = existNames.includes(contact.name.toLowerCase());
+    if (isExist) {
+      alert(`${contact.name} is already in contacts.`);
+      return;
+    }
+    this.setState(({ contacts }) => {
       return {
-        [`contacts`]: [...prevContacts, newContact],
+        contacts: [
+          ...contacts,
+          {
+            id: nanoid(),
+            name: contact.name,
+            number: contact.number,
+          },
+        ],
       };
     });
   };
 
   removeContact = ({ target }) => {
     const removableId = target.id;
-    const contacts = this.state.contacts;
     this.setState({
-      contacts: contacts.filter(contact => contact.id !== removableId),
+      contacts: this.state.contacts.filter(
+        contact => contact.id !== removableId
+      ),
     });
   };
 
@@ -39,25 +50,16 @@ export class App extends Component {
   };
 
   renderFilteredContacts = () => {
-    const contacts = this.state.contacts;
-    const filter = this.state.filter;
-    if (!filter) {
-      return contacts;
-    } else {
-      return contacts.filter(({ name }) =>
-        name.toLowerCase().includes(filter.toLocaleLowerCase())
-      );
-    }
+    return this.state.contacts.filter(({ name }) =>
+      name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
+    );
   };
 
   render() {
     return (
       <>
         <h1>Phonebook</h1>
-        <InputForm
-          addContact={this.addContact}
-          contacts={this.state.contacts}
-        />
+        <InputForm addContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter filterChange={this.filterChange} value={this.state.filter} />
         <ContactsList

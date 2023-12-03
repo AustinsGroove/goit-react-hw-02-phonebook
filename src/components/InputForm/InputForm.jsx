@@ -16,14 +16,6 @@ class InputForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
-    const existNames = this.props.contacts.map(({ name }) => {
-      return name.toLowerCase();
-    });
-    const isExist = existNames.includes(this.state.name.toLowerCase());
-    if (isExist) {
-      alert(`${this.state.name} is already in contacts.`);
-      return;
-    }
     this.props.addContact(this.state);
     this.clearForm();
   };
